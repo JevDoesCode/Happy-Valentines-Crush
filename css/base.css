@@ -1,0 +1,148 @@
+/* base.css: colour tokens, page background, shared layout */
+
+:root {
+    --bg1: #ffe9ef;
+    --bg2: #ffc2d4;
+    --bg3: #ff8fae;
+    --ink: #6e0d1f;
+    --soft: #a0344c;
+    --paper: #fff8fa;
+    --paper-ink: #5a1424;
+    --btn: #8b2c3a;
+    --btn-on: #fff3f5;
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+        --bg1: #2a0a14;
+        --bg2: #4a1024;
+        --bg3: #7a1a36;
+        --ink: #ffd9e2;
+        --soft: #ff9db6;
+        --paper: #3a1222;
+        --paper-ink: #ffe6ec;
+        --btn: #c94a63;
+        --btn-on: #2a0a14;
+    }
+}
+
+:root[data-theme="dark"] {
+    --bg1: #2a0a14;
+    --bg2: #4a1024;
+    --bg3: #7a1a36;
+    --ink: #ffd9e2;
+    --soft: #ff9db6;
+    --paper: #3a1222;
+    --paper-ink: #ffe6ec;
+    --btn: #c94a63;
+    --btn-on: #2a0a14;
+}
+
+html {
+    scroll-padding-top: env(safe-area-inset-top, 0px);
+    background: var(--bg1);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    color: var(--ink);
+    overflow-x: hidden;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+}
+
+button {
+    touch-action: manipulation;
+    -webkit-user-select: none;
+    user-select: none;
+    font: inherit;
+}
+
+.bg {
+    position: fixed;
+    inset: 0;
+    z-index: -3;
+    background: linear-gradient(160deg, var(--bg1), var(--bg2), var(--bg3), var(--bg2));
+    background-size: 300% 300%;
+    animation: drift 20s ease infinite;
+}
+
+.blob {
+    position: fixed;
+    z-index: -2;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: .55;
+    background: var(--bg3);
+    animation: float 14s ease-in-out infinite;
+}
+
+.b1 {
+    width: 46vmax;
+    height: 46vmax;
+    left: -14vmax;
+    top: -10vmax;
+}
+
+.b2 {
+    width: 38vmax;
+    height: 38vmax;
+    right: -12vmax;
+    bottom: -8vmax;
+    background: #ff5d8f;
+    animation-delay: -6s;
+}
+
+#fx {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+}
+
+#bar {
+    position: fixed;
+    left: 0;
+    top: env(safe-area-inset-top, 0px);
+    height: 4px;
+    width: 0;
+    background: linear-gradient(90deg, #ff8fab, #d6204f);
+    z-index: 20;
+    border-radius: 0 4px 4px 0;
+}
+
+section {
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 32px 20px;
+    text-align: center;
+    position: relative;
+}
+
+.locked {
+    display: none;
+}
+
+h1,
+h2 {
+    font-family: 'Alike', Georgia, serif;
+    margin: 0;
+    line-height: 1.05;
+}
+
+.script {
+    font-family: 'Great Vibes', 'Brush Script MT', cursive;
+    font-weight: 400;
+}

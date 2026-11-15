@@ -1,0 +1,162 @@
+/* motion.css: keyframes, phone layout, reduced-motion */
+
+@keyframes drift {
+    50% {
+        background-position: 100% 100%;
+    }
+}
+
+@keyframes float {
+    50% {
+        transform: translate(4vmax, 5vmax) scale(1.1);
+    }
+}
+
+@keyframes beat {
+    0%,100% {
+        transform: scale(1);
+    }
+    15% {
+        transform: scale(1.12);
+    }
+    30% {
+        transform: scale(1);
+    }
+    45% {
+        transform: scale(1.08);
+    }
+}
+
+@keyframes shake {
+    25% {
+        translate: -8px 0;
+    }
+    75% {
+        translate: 8px 0;
+    }
+}
+
+@keyframes bloom {
+    to {
+        transform: scale(1);
+    }
+}
+
+@keyframes sway {
+    50% {
+        transform: rotate(3deg) scale(1.02);
+    }
+}
+
+@keyframes grow {
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+@keyframes twinkle {
+    50% {
+        opacity: .2;
+        transform: scale(.4);
+    }
+}
+
+@keyframes wiggle {
+    0%,60%,100% {
+        transform: rotate(0);
+    }
+    66% {
+        transform: rotate(-9deg) scale(1.06);
+    }
+    74% {
+        transform: rotate(8deg) scale(1.06);
+    }
+    82% {
+        transform: rotate(-6deg);
+    }
+    90% {
+        transform: rotate(4deg);
+    }
+}
+
+@keyframes ring {
+    0% {
+        transform: scale(.7);
+        opacity: .9;
+    }
+    100% {
+        transform: scale(1.5);
+        opacity: 0;
+    }
+}
+
+@keyframes bob {
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+@media (hover: none) {
+    .btn:hover {
+        box-shadow: 0 10px 24px rgba(120, 10, 40, .35);
+    }
+}
+
+@media (max-width: 700px) {
+    .bg {
+        animation: none;
+    }
+    .blob {
+        filter: blur(36px);
+        opacity: .45;
+    }
+    section {
+        padding: 28px 16px;
+    }
+    .btn {
+        width: 84px;
+        height: 84px;
+    }
+    .choices {
+        gap: 22px;
+    }
+    .env {
+        right: 0;
+    }
+    .tap {
+        right: 4%;
+    }
+}
+
+@media (max-height: 520px) and (orientation: landscape) {
+    .gif-slot {
+        width: 200px;
+        margin-bottom: 12px;
+    }
+    h1.big {
+        font-size: 2.2rem;
+    }
+    .sub {
+        margin: 8px 0 14px;
+    }
+    #hint {
+        margin-top: 8px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation: none!important;
+        transition: none!important;
+    }
+    .rose {
+        transform: none;
+    }
+    .stem {
+        stroke-dashoffset: 0;
+    }
+    .reveal {
+        opacity: 1;
+        transform: none;
+    }
+}

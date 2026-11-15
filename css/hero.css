@@ -1,0 +1,94 @@
+/* hero.css: "Hello langga" screen, GIF slot, yes/no buttons */
+
+.gif-slot {
+    width: min(340px, 76vw);
+    aspect-ratio: 16 / 10;
+    margin-bottom: 26px;
+    border-radius: 24px;
+    border: 2px dashed var(--soft);
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    color: var(--soft);
+    font-size: 1.05rem;
+    background: rgba(255, 255, 255, .18);
+}
+
+/* once your GIF loads, the box takes the GIF's own shape */
+.gif-slot.filled {
+    aspect-ratio: auto;
+    border: 0;
+    box-shadow: 0 14px 40px rgba(160, 20, 60, .28);
+}
+
+.gif-slot img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+h1.big {
+    font-size: clamp(2.6rem, 11vw, 4.8rem);
+    color: var(--ink);
+    text-shadow: 0 3px 0 rgba(255, 255, 255, .35);
+}
+
+.sub {
+    font-family: 'Alike', Georgia, serif;
+    font-size: clamp(1.05rem, 4vw, 1.4rem);
+    color: var(--soft);
+    margin: 14px 0 30px;
+    letter-spacing: .04em;
+}
+
+.choices {
+    display: flex;
+    gap: 26px;
+    align-items: center;
+}
+
+.btn {
+    width: 92px;
+    height: 92px;
+    border-radius: 50%;
+    border: 0;
+    background: var(--btn);
+    color: var(--btn-on);
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    transform: scale(var(--s, 1));
+    transition: transform .35s cubic-bezier(.3, 1.6, .5, 1), box-shadow .3s;
+    box-shadow: 0 10px 24px rgba(120, 10, 40, .35);
+}
+
+.btn:hover {
+    box-shadow: 0 14px 32px rgba(120, 10, 40, .5);
+}
+
+.btn:focus-visible,
+.env:focus-visible {
+    outline: 4px solid #ffd166;
+    outline-offset: 4px;
+}
+
+.btn svg {
+    width: 46px;
+    height: 46px;
+}
+
+#yes {
+    animation: beat 1.6s ease-in-out infinite;
+}
+
+.shake {
+    animation: shake .4s;
+}
+
+#hint {
+    min-height: 2em;
+    margin-top: 22px;
+    font-size: 1.25rem;
+    color: var(--soft);
+    font-style: italic;
+}

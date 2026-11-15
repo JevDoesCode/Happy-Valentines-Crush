@@ -1,0 +1,159 @@
+/* player.css: the mini music player and the floating pause button */
+
+.player {
+    width: min(340px, 100%);
+    padding: 26px 24px 28px;
+    background: var(--paper);
+    color: var(--paper-ink);
+    border-radius: 30px;
+    box-shadow: 0 24px 60px rgba(120, 10, 40, .3);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+}
+
+.disc {
+    width: 170px;
+    height: 170px;
+    margin-bottom: 14px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background:
+        radial-gradient(circle, #e63963 0 22%, transparent 23%),
+        repeating-radial-gradient(circle, #5a0d1b 0 3px, #7a0f1f 3px 6px);
+    box-shadow: 0 10px 26px rgba(90, 10, 30, .45);
+}
+
+.disc svg {
+    width: 34px;
+    height: 34px;
+    fill: #fff;
+}
+
+.playing .disc {
+    animation: spin 6s linear infinite;
+}
+
+.song-title {
+    margin: 0;
+    font-family: 'Alike', Georgia, serif;
+    font-size: 1.4rem;
+}
+
+.song-artist {
+    margin: 0 0 12px;
+    font-size: 1.15rem;
+    font-style: italic;
+    color: var(--soft);
+}
+
+.track {
+    width: 100%;
+    height: 8px;
+    border-radius: 8px;
+    background: rgba(230, 57, 99, .22);
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.fill {
+    width: 0;
+    height: 100%;
+    background: linear-gradient(90deg, #ff8fab, #e63963);
+}
+
+.times {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 14px;
+    font-size: .95rem;
+    color: var(--soft);
+}
+
+.play {
+    position: relative;
+}
+
+.play svg[hidden] {
+    display: none;
+}
+
+/* draws attention to the button until it is pressed the first time */
+.play.pulse {
+    animation: beat 1.6s ease-in-out infinite;
+}
+
+.play.pulse::before {
+    content: "";
+    position: absolute;
+    inset: -12%;
+    border-radius: 50%;
+    border: 3px solid #ff5d8f;
+    animation: ring 1.8s ease-out infinite;
+    pointer-events: none;
+}
+
+/* small round button that stays on screen once the music starts */
+.mini {
+    position: fixed;
+    right: 14px;
+    bottom: calc(14px + env(safe-area-inset-bottom, 0px));
+    z-index: 20;
+    width: 52px;
+    height: 52px;
+    border: 0;
+    border-radius: 50%;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    background: var(--btn);
+    color: var(--btn-on);
+    box-shadow: 0 8px 20px rgba(120, 10, 40, .4);
+    cursor: pointer;
+}
+
+.mini.on {
+    display: flex;
+}
+
+.mini span {
+    width: 4px;
+    height: 20px;
+    border-radius: 2px;
+    background: currentColor;
+    animation: eq .9s ease-in-out infinite;
+}
+
+.mini span:nth-child(2) {
+    animation-delay: .25s;
+}
+
+.mini span:nth-child(3) {
+    animation-delay: .5s;
+}
+
+.mini.paused span {
+    animation: none;
+    transform: scaleY(.35);
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes eq {
+    0%,
+    100% {
+        transform: scaleY(.35);
+    }
+
+    50% {
+        transform: scaleY(1);
+    }
+}

@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#ffc2d4">
+    <title>For you, langga</title>
+
+    <link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Alike&family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Alike&family=Great+Vibes&family=Dancing+Script:wght@500;600&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap"
+        rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/hero.css">
+    <link rel="stylesheet" href="css/flowers.css">
+    <link rel="stylesheet" href="css/letter.css">
+    <link rel="stylesheet" href="css/player.css">
+    <link rel="stylesheet" href="css/motion.css">
+</head>
+
+<body>
+
+    <!-- Background layers -->
+    <div class="bg"></div>
+    <div class="blob b1"></div>
+    <div class="blob b2"></div>
+    <canvas id="fx"></canvas>
+    <div id="bar"></div>
+
+    <!-- Reusable SVG art: gradients, rose, heart, sparkle -->
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+        <defs>
+            <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#7a0f1f" />
+                <stop offset="1" stop-color="#c2505c" />
+            </linearGradient>
+            <linearGradient id="g2" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#8f1b2b" />
+                <stop offset="1" stop-color="#e08a94" />
+            </linearGradient>
+            <linearGradient id="g3" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#a52a3a" />
+                <stop offset="1" stop-color="#f4b0b9" />
+            </linearGradient>
+
+            <symbol id="rose" viewBox="0 0 200 200">
+                <path fill="url(#g1)"
+                    d="M100 12C60 8 14 40 18 92c4 52 50 96 84 96s80-40 82-92C186 44 144 14 100 12z" />
+                <path fill="url(#g2)" stroke="#ffe1e6" stroke-width="3"
+                    d="M54 96c-6-34 22-62 54-60 34 2 52 32 44 62-8 32-40 50-68 40-20-8-30-24-30-42z" />
+                <path fill="url(#g3)" stroke="#ffe1e6" stroke-width="3"
+                    d="M80 100c-4-22 14-40 36-36 22 4 28 28 16 44-12 16-36 16-46 2z" />
+                <path fill="none" stroke="#ffe9ee" stroke-width="3" stroke-linecap="round"
+                    d="M96 96c2-12 18-14 22-4 4 10-10 20-18 14" />
+                <path fill="none" stroke="#ffe1e6" stroke-width="3" opacity=".8"
+                    d="M30 100c6 40 40 70 72 70" />
+            </symbol>
+
+            <symbol id="heart" viewBox="0 0 24 24">
+                <path d="M12 21s-8-5.2-8-11a4.6 4.6 0 0 1 8-3 4.6 4.6 0 0 1 8 3c0 5.8-8 11-8 11z" />
+            </symbol>
+
+            <symbol id="spark" viewBox="0 0 24 24">
+                <path d="M12 2l2.2 7.8L22 12l-7.8 2.2L12 22l-2.2-7.8L2 12l7.8-2.2z" />
+            </symbol>
+        </defs>
+    </svg>
+
+
+    <!-- ============ 1. HELLO ============ -->
+    <section id="hello">
+
+        <div class="gif-slot" id="gifSlot">
+            <span id="gifHint">Your GIF goes here</span>
+            <img id="gif" alt="" hidden>
+        </div>
+
+        <h1 class="big">Hello langga,</h1>
+        <p class="sub">would you like to see my gift?</p>
+
+        <div class="choices">
+            <button class="btn" id="no" aria-label="No">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4.5" stroke-linecap="round">
+                    <path d="M5 5l14 14M19 5L5 19" />
+                </svg>
+            </button>
+
+            <button class="btn" id="yes" aria-label="Yes, show me">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4.5" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path d="M4 12.5l5.5 5.5L20 7" />
+                </svg>
+            </button>
+        </div>
+
+        <p id="hint" aria-live="polite"></p>
+    </section>
+
+
+    <!-- ============ 2. MUSIC PLAYER ============ -->
+    <section id="player" class="locked">
+        <h2 class="script title-script">Our song langga!</h2>
+        <p class="tag" id="playerTag">Press play, langga</p>
+
+        <div class="player">
+            <div class="disc">
+                <svg viewBox="0 0 24 24"><use href="#heart" /></svg>
+            </div>
+
+            <p class="song-title" id="songTitle"></p>
+            <p class="song-artist" id="songArtist"></p>
+
+            <div class="track" id="track"><div class="fill" id="fill"></div></div>
+            <div class="times"><span id="tNow">0:00</span><span id="tLen">0:00</span></div>
+
+            <button class="btn play pulse" id="play" aria-label="Play">
+                <svg id="iconPlay" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z" /></svg>
+                <svg id="iconPause" viewBox="0 0 24 24" fill="currentColor" hidden>
+                    <path d="M7 5h4v14H7zM13 5h4v14h-4z" />
+                </svg>
+            </button>
+        </div>
+    </section>
+
+
+    <!-- ============ 3. FLOWERS ============ -->
+    <section id="flowers" class="locked">
+        <h2 class="script title-script">Flowers for you</h2>
+
+        <div class="stage">
+            <svg viewBox="0 0 400 560" role="img" aria-label="Three red roses in a vase that says I love you">
+
+                <!-- stems -->
+                <g fill="none" stroke="#5f9a52" stroke-width="7" stroke-linecap="round">
+                    <path class="stem" d="M200 215V352" />
+                    <path class="stem" d="M118 318C120 340 170 330 192 352" />
+                    <path class="stem" d="M282 308C280 335 232 330 208 352" />
+                </g>
+
+                <!-- leaves -->
+                <path d="M200 300c-40-10-60-40-52-52 30 4 52 24 52 52z" fill="#6aa85c" />
+                <path d="M205 310c40-12 62-40 54-54-32 6-54 26-54 54z" fill="#7bb86a" />
+
+                <!-- roses -->
+                <g class="rose" style="--d:.5s">
+                    <use href="#rose" x="100" y="20" width="200" height="200" />
+                </g>
+                <g class="rose" style="--d:.9s">
+                    <use href="#rose" x="30" y="170" width="160" height="160" />
+                </g>
+                <g class="rose" style="--d:1.2s">
+                    <use href="#rose" x="210" y="160" width="160" height="160" />
+                </g>
+
+                <!-- vase -->
+                <path fill="#7a0f1f"
+                    d="M150 358Q150 344 170 344H230Q250 344 250 358Q250 372 292 402Q334 442 322 502Q310 550 200 550Q90 550 78 502Q66 442 108 402Q150 372 150 358Z" />
+                <use href="#heart" x="184" y="418" width="32" height="32" fill="#ffc2d1" />
+                <text x="200" y="490" text-anchor="middle" font-family="Alike, Georgia, serif" font-size="30"
+                    fill="#ffe9ee" letter-spacing="1.5">I LOVE YOU</text>
+
+                <!-- sparkles -->
+                <use class="tw" href="#spark" x="40" y="60" width="22" height="22" fill="#fff" style="animation-delay:0s" />
+                <use class="tw" href="#spark" x="340" y="90" width="18" height="18" fill="#fff" style="animation-delay:.8s" />
+                <use class="tw" href="#spark" x="330" y="330" width="14" height="14" fill="#fff" style="animation-delay:1.4s" />
+                <use class="tw" href="#spark" x="20" y="300" width="16" height="16" fill="#fff" style="animation-delay:.4s" />
+            </svg>
+
+            <button class="env" id="env" aria-label="Open the letter">
+                <svg viewBox="0 0 120 86">
+                    <rect x="3" y="6" width="114" height="76" rx="6" fill="#f6c9d2" stroke="#e29aa8" stroke-width="2" />
+                    <path d="M4 80L48 44M116 80L72 44" stroke="#e29aa8" stroke-width="2" fill="none" />
+                    <g class="flap">
+                        <path d="M4 8L60 54L116 8Z" fill="#f2b6c2" stroke="#e29aa8" stroke-width="2"
+                            stroke-linejoin="round" />
+                    </g>
+                    <circle cx="60" cy="50" r="12" fill="#b0243b" />
+                    <use href="#heart" x="52" y="42" width="16" height="16" fill="#ffd9e0" />
+                </svg>
+            </button>
+        </div>
+    </section>
+
+
+    <!-- ============ 4. LETTER ============ -->
+    <section id="letter" class="locked">
+        <div class="icons">
+            <svg><use href="#heart" /></svg>
+            <svg><use href="#spark" /></svg>
+            <svg><use href="#heart" /></svg>
+        </div>
+
+        <!-- The letter text is built from js/config.js -->
+        <article class="paper" id="paper"></article>
+    </section>
+
+
+    <!-- Music (file path comes from js/config.js) and the floating pause button -->
+    <audio id="song" loop preload="auto"></audio>
+    <button class="mini" id="mini" aria-label="Pause music"><span></span><span></span><span></span></button>
+
+    <!-- Scripts -->
+    <script src="js/config.js"></script>
+    <script src="js/effects.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>

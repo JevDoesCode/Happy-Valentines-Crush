@@ -1,5 +1,3 @@
-/* base.css: colour tokens, page background, shared layout */
-
 :root {
     --bg1: #ffe9ef;
     --bg2: #ffc2d4;
@@ -44,6 +42,7 @@
 html {
     scroll-padding-top: env(safe-area-inset-top, 0px);
     background: var(--bg1);
+    overscroll-behavior-x: none;
 }
 
 * {
@@ -55,6 +54,7 @@ body {
     font-family: 'Cormorant Garamond', Georgia, serif;
     color: var(--ink);
     overflow-x: hidden;
+    overflow-x: clip;
     -webkit-tap-highlight-color: transparent;
     -webkit-text-size-adjust: 100%;
     text-size-adjust: 100%;
@@ -67,6 +67,8 @@ button {
     font: inherit;
 }
 
+/* ---------- background layers ---------- */
+
 .bg {
     position: fixed;
     inset: 0;
@@ -76,9 +78,16 @@ button {
     animation: drift 20s ease infinite;
 }
 
-.blob {
+.bg-layer {
     position: fixed;
+    inset: 0;
     z-index: -2;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.blob {
+    position: absolute;
     border-radius: 50%;
     filter: blur(60px);
     opacity: .55;
@@ -120,6 +129,8 @@ button {
     border-radius: 0 4px 4px 0;
 }
 
+/* ---------- sections ---------- */
+
 section {
     min-height: 100svh;
     display: flex;
@@ -129,6 +140,8 @@ section {
     padding: 32px 20px;
     text-align: center;
     position: relative;
+    overflow: hidden;
+    overflow: clip;
 }
 
 .locked {
